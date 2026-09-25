@@ -1,261 +1,182 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Access Hub</title>
+    <title>Premium Sales Hub</title>
+    <!-- Tailwind CSS CDN for premium styling -->
+    <script src="https://tailwindcss.com"></script>
     <style>
-        /* Modern Premium Dark UI Stylesheet */
-        body {
-            background-color: #0f172a;
-            color: #ffffff;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            padding: 15px;
-            text-align: center;
-            margin: 0;
-        }
-        
-        .my-card {
-            background-color: #1e293b;
-            border: 2px solid #334155;
-            border-radius: 24px;
-            padding: 24px;
-            max-width: 420px;
-            margin: 20px auto;
-            box-shadow: 0px 15px 35px rgba(0,0,0,0.6);
-        }
-
-        /* Top Navigation Protocol for User & Admin Switches */
-        .top-navigation {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 25px;
-            background: #111827;
-            padding: 8px;
-            border-radius: 12px;
-            border: 1px solid #334155;
-        }
-        .nav-btn {
-            background: #4f46e5;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.2s;
-        }
-        .nav-btn:active {
-            transform: scale(0.95);
-        }
-
-        /* Pricing Area Dashboard */
-        .price-box {
-            background: #111827;
-            padding: 18px;
-            border-radius: 14px;
-            margin: 20px 0;
-            border: 1px solid #1e293b;
-        }
-        .strike-price {
-            text-decoration: line-through;
-            color: #ef4444;
-            font-size: 18px;
-            margin-right: 12px;
-            font-weight: 500;
-        }
-        .actual-price {
-            color: #22c55e;
-            font-size: 34px;
-            font-weight: 800;
-        }
-        .uid-text {
-            color: #eab308;
-            font-size: 13px;
-            margin-top: 8px;
-            background: rgba(234, 179, 8, 0.1);
-            padding: 4px 10px;
-            border-radius: 20px;
-            display: inline-block;
-        }
-
-        /* Standardized Action Buttons UI */
-        .action-btn {
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            display: block;
-            transition: all 0.2s;
-        }
-        .action-btn:active {
-            transform: scale(0.98);
-        }
-        .btn-pay { background-color: #22c55e; color: white; }
-        .btn-submit { background-color: #3b82f6; color: white; }
-        .btn-premium { background-color: #a855f7; color: white; }
-
-        /* Form Controls Setup */
-        .input-group {
-            text-align: left;
-            margin-bottom: 14px;
-        }
-        .input-group label {
-            display: block;
-            font-size: 13px;
-            color: #94a3b8;
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-        .my-input, .my-select {
-            width: 100%;
-            padding: 12px;
-            background: #0f172a;
-            border: 1px solid #475569;
-            color: white;
-            border-radius: 8px;
-            box-sizing: border-box;
-            font-size: 14px;
-        }
-        .my-input:focus, .my-select:focus {
-            outline: none;
-            border-color: #4f46e5;
-        }
-
-        .page-screen { display: none; }
-        .active-screen { display: block !important; }
-
-        /* Request Lists Layout inside Admin Panel */
-        .req-item {
-            background: #0f172a;
-            border: 1px solid #475569;
-            padding: 12px;
-            border-radius: 10px;
-            margin-bottom: 12px;
-            text-align: left;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-        
-        .premium-box {
-            background: linear-gradient(to right, #4f46e5, #7c3aed);
-            padding: 16px;
-            border-radius: 12px;
-            margin-bottom: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .premium-box a, .premium-box div { color: white; font-weight: bold; text-decoration: none; display: block; cursor: pointer; }
+        body { background-color: #0d1117; color: #c9d1d9; }
+        .card-bg { background-color: #161b22; border: 1px solid #30363d; }
     </style>
 </head>
-<body>
+<body class="flex flex-col items-center justify-center min-h-screen p-4 font-sans">
 
-    <div class="my-card">
+    <!-- मुख्य कंटेनर (Card Layout) -->
+    <div class="w-full max-w-md card-bg rounded-2xl p-6 shadow-2xl space-y-6">
         
-        <!-- TOP NAVIGATION CONTROL GATE -->
-        <div class="top-navigation">
-            <button class="nav-btn" id="go-to-user-btn">P (User)</button>
-            <button class="nav-btn" style="background:#db2777;" id="go-to-admin-btn">A (Admin Panel)</button>
+        <!-- टॉप टॉगल बटन्स -->
+        <div class="flex justify-between space-x-2">
+            <button onclick="switchPage('sales-page')" class="w-1/2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-xl transition duration-200">P (User)</button>
+            <button onclick="openAdminPanel()" class="w-1/2 bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded-xl transition duration-200">A (Admin Panel)</button>
         </div>
 
-        <!-- SCREEN 1: USER SALES CORE SCREEN -->
-        <div id="page-user" class="page-screen active-screen">
-            <h2 id="main-title">Premium Access Pack</h2>
-            <p id="main-desc" style="color: #94a3b8; font-size: 14px; line-height: 1.6;">
-                Unlock exclusive premium servers and direct download links instantly.
-            </p>
-            
-            <div class="price-box">
-                <span id="display-old-price" class="strike-price">₹899</span>
-                <span id="display-new-price" class="actual-price">₹99</span>
-                <br>
-                <div class="uid-text">Login Unique ID: <span id="display-uid" style="font-weight:bold;">Pay to Generate</span></div>
+        <!-- ================= 1. सेल्स स्क्रीन (Sales Page) ================= -->
+        <div id="sales-page" class="page space-y-6">
+            <div class="text-center">
+                <h1 id="sales-title" class="text-2xl font-extrabold text-white tracking-wide">Premium Access Pack</h1>
+                <p id="sales-desc" class="text-gray-400 text-sm mt-2">Unlock exclusive premium servers and direct download links instantly.</p>
             </div>
 
-            <button class="action-btn btn-pay" id="pay-now-btn">Pay Now</button>
-            <button class="action-btn btn-submit" id="submit-pay-page-btn">Submit Your Payment</button>
-            <button class="action-btn btn-premium" id="premium-page-btn">Go to Premium Page</button>
+            <!-- प्राइसिंग डिस्प्ले -->
+            <div class="bg-gray-900 rounded-xl p-4 text-center border border-gray-800">
+                <div class="flex justify-center items-center space-x-4">
+                    <span id="cross-price" class="text-red-500 line-through text-lg font-bold">₹899</span>
+                    <span id="user-price" class="text-green-400 text-3xl font-extrabold">₹99</span>
+                </div>
+                <div class="mt-3">
+                    <span class="bg-yellow-500/10 text-yellow-500 text-xs font-semibold px-3 py-1 rounded-full border border-yellow-500/20">
+                        Login Unique ID: <span id="unique-id-status">Pay to Generate</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- एक्शन बटन्स -->
+            <div class="flex flex-col space-y-3">
+                <button onclick="triggerUPI()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-4 rounded-xl shadow-lg transform active:scale-95 transition duration-150">
+                    Pay Now
+                </button>
+                <button onclick="switchPage('payment-form')" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-xl shadow-lg transform active:scale-95 transition duration-150">
+                    Submit Your Payment
+                </button>
+                <button onclick="switchPage('premium-zone')" class="w-full bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-4 rounded-xl shadow-lg transform active:scale-95 transition duration-150">
+                    Go to Premium Page
+                </button>
+            </div>
         </div>
 
-        <!-- SCREEN 2: PAYMENT VERIFICATION FORM -->
-        <div id="page-form" class="page-screen">
-            <h2>Payment Details</h2>
-            <p style="color: #94a3b8; font-size: 13px; margin-bottom: 15px;">Submit info for fast admin approval.</p>
-            
-            <div class="input-group">
-                <label>Your Name</label>
-                <input type="text" id="form-name" class="my-input" placeholder="Enter Full Name">
-            </div>
-            
-            <div class="input-group">
-                <label>Select Payment App</label>
-                <select id="form-app" class="my-select">
+        <!-- ================= 2. पेमेंट फॉर्म पेज ================= -->
+        <div id="payment-form" class="page hidden space-y-4">
+            <h2 class="text-xl font-bold text-white text-center">Submit Payment Details</h2>
+            <div class="space-y-3">
+                <input type="text" id="form-name" placeholder="आपका नाम" class="w-full bg-gray-900 border border-gray-700 rounded-xl p-3 text-white focus:outline-none focus:border-blue-500">
+                <select id="form-app" class="w-full bg-gray-900 border border-gray-700 rounded-xl p-3 text-white focus:outline-none focus:border-blue-500">
                     <option value="PhonePe">PhonePe</option>
-                    <option value="Google Pay">Google Pay</option>
+                    <option value="GooglePay">Google Pay</option>
                     <option value="Paytm">Paytm</option>
-                    <option value="Navi App">Navi App</option>
-                    <option value="Other UPI App">Other UPI App</option>
+                    <option value="Other">Other UPI App</option>
                 </select>
+                <input type="text" id="form-time" placeholder="भुगतान का समय (e.g., 02:00 PM)" class="w-full bg-gray-900 border border-gray-700 rounded-xl p-3 text-white focus:outline-none focus:border-blue-500">
+                <button onclick="submitPaymentData()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl">डेटा सबमिट करें</button>
             </div>
-
-            <div class="input-group">
-                <label>Time of Payment</label>
-                <input type="time" id="form-time" class="my-input">
-            </div>
-
-            <button class="action-btn btn-pay" id="submit-details-btn">Submit Data</button>
-            <button class="action-btn" style="background:#475569; color:white;" id="cancel-form-btn">Cancel</button>
         </div>
 
-        <!-- SCREEN 3: ADMIN CORE MANAGEMENT PANEL -->
-        <div id="page-admin" class="page-screen">
-            <h2>Admin Controls</h2>
-            
-            <div class="input-group" style="margin-top:15px;">
-                <label>Edit Title</label>
-                <input type="text" id="adm-input-title" class="my-input">
+        <!-- ================= 3. प्रीमियम ज़ोन ================= -->
+        <div id="premium-zone" class="page hidden space-y-4">
+            <h2 class="text-xl font-bold text-white text-center">🚀 Premium Zone</h2>
+            <div id="premium-links-container" class="space-y-2">
+                <!-- लिंक्स यहाँ डायनामिक लोड होंगे -->
             </div>
-            <div class="input-group">
-                <label>Edit Description</label>
-                <textarea id="adm-input-desc" class="my-input" rows="2"></textarea>
-            </div>
-            <div style="display:flex; gap:10px;">
-                <div class="input-group" style="flex:1;">
-                    <label>Cross Price (e.g. 899)</label>
-                    <input type="text" id="adm-input-oldprice" class="my-input">
-                </div>
-                <div class="input-group" style="flex:1;">
-                    <label>User Price (e.g. 99)</label>
-                    <input type="text" id="adm-input-newprice" class="my-input">
-                </div>
-            </div>
-            <div style="display:flex; gap:10px;">
-                <div class="input-group" style="flex:1;">
-                    <label>Your Real UPI ID</label>
-                    <input type="text" id="adm-input-upi" class="my-input">
-                </div>
-                <div class="input-group" style="flex:1;">
-                    <label>Receiver Name</label>
-                    <input type="text" id="adm-input-upiname" class="my-input">
-                </div>
-            </div>
+            <hr class="border-gray-800">
+            <button onclick="downloadClientFile()" class="w-full bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold py-2 rounded-xl">
+                Download Client File (.txt)
+            </button>
+        </div>
 
-            <h4 style="color:#a855f7; text-align:left; margin:15px 0 5px 0; font-size:14px;">Manage Premium Links</h4>
-            <div class="input-group">
-                <label>Link 1 (Web URL/Premium Source)</label>
-                <input type="text" id="adm-link1-name" class="my-input" placeholder="Link 1 Name" style="margin-bottom:4px;">
-                <input type="text" id="adm-link1-url" class="my-input" placeholder="Link 1 URL">
-            </div>
-            <div class="input-group">
-                <label>Link 2 (Telegram Channel/Group Link)</label>
-                <input type="text" id="adm-link2-name" class="my-input" placeholder="Link 2 Name" style="margin-bottom:4px;">
-                <input type="text" id="adm-link2-url" class="my-input" placeholder="Link 2 URL">
-            </div>
+        <!-- ================= 4. एडमिन पैनल ================= -->
+        <div id="admin-panel" class="page hidden space-y-4">
+            <h2 class="text-xl font-bold text-pink-500 text-center">🛠️ Admin Configuration</h2>
             
-            <!-- File Configuration Pipeline -->
-            <div class="input-group" style="border: 1px dashed #4f46e5; padding: 12px; border-radius: 10px; background: rgba(79, 70, 229, 0.05);">
-                <label style="color:#a855f7; font-weight:bold;">📥 Link 3: Direct File Downloader</label>
+            <div class="space-y-3 text-sm">
+                <div>
+                    <label class="block mb-1 text-gray-400">UPI ID सेट करें:</label>
+                    <input type="text" id="admin-upi" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-2 text-white">
+                </div>
+                <div class="flex space-x-2">
+                    <div class="w-1/2">
+                        <label class="block mb-1 text-gray-400">क्रॉस प्राइस (₹):</label>
+                        <input type="number" id="admin-cross" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-2 text-white">
+                    </div>
+                    <div class="w-1/2">
+                        <label class="block mb-1 text-gray-400">यूजर प्राइस (₹):</label>
+                        <input type="number" id="admin-price" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-2 text-white">
+                    </div>
+                </div>
+                <div>
+                    <label class="block mb-1 text-gray-400">लाइव टाइटल एडिट:</label>
+                    <input type="text" id="admin-title" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-2 text-white">
+                </div>
+                <div>
+                    <label class="block mb-1 text-gray-400">डिस्क्रीप्शन:</label>
+                    <textarea id="admin-desc" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-2 text-white h-16"></textarea>
+                </div>
+                <button onclick="saveAdminSettings()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 rounded-xl">सेटिंग्स सेव करें</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ================= JAVASCRIPT LOGIC ================= -->
+    <script>
+        // डिफॉल्ट कॉन्फ़िगरेशन (LocalStorage डेटा बैकअप के साथ)
+        let config = JSON.parse(localStorage.getItem('hub_config')) || {
+            upi: 'xyz@ybl',
+            crossPrice: '899',
+            userPrice: '99',
+            title: 'Premium Access Pack',
+            desc: 'Unlock exclusive premium servers and direct download links instantly.',
+            links: ['https://google.com', 'https://github.com']
+        };
+
+        // पेज लोड होने पर डेटा रेंडर करें
+        function initApp() {
+            document.getElementById('cross-price').innerText = '₹' + config.crossPrice;
+            document.getElementById('user-price').innerText = '₹' + config.userPrice;
+            document.getElementById('sales-title').innerText = config.title;
+            document.getElementById('sales-desc').innerText = config.desc;
+            
+            // एडमिन इनपुट्स में वैल्यू भरें
+            document.getElementById('admin-upi').value = config.upi;
+            document.getElementById('admin-cross').value = config.crossPrice;
+            document.getElementById('admin-price').value = config.userPrice;
+            document.getElementById('admin-title').value = config.title;
+            document.getElementById('admin-desc').value = config.desc;
+
+            // प्रीमियम लिंक्स लोड करें
+            renderPremiumLinks();
+        }
+
+        // सिंगल पेज नेविगेशन फ़ंक्शन
+        function switchPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => page.classList.add('hidden'));
+            document.getElementById(pageId).classList.remove('hidden');
+        }
+
+        // पासवर्ड प्रोटेक्टेड एडमिन पैनल
+        function openAdminPanel() {
+            let password = prompt("एडमिन एक्सेस कोड दर्ज करें:");
+            if (password === "852201") {
+                switchPage('admin-panel');
+            } else {
+                alert("गलत पासवर्ड! एक्सेस नामंजूर।");
+            }
+        }
+
+        // एडमिन सेटिंग्स को LocalStorage में परमानेंट सेव करना
+        function saveAdminSettings() {
+            config.upi = document.getElementById('admin-upi').value;
+            config.crossPrice = document.getElementById('admin-cross').value;
+            config.userPrice = document.getElementById('admin-price').value;
+            config.title = document.getElementById('admin-title').value;
+            config.desc = document.getElementById('admin-desc').value;
+
+            localStorage.setItem('hub_config', JSON.stringify(config));
+            initApp(); // यूआई अपडेट करें
+            alert("कॉन्फ़िगरेशन सफलतापूर्वक सेव हो गया!");
+            switchPage('sales-page');
+        }
+
+        // डायनामिक मोबाइल UPI डीप लिंकिंग + यूनिक आईडी जेनरेशन
+        function triggerUPI() {
+        
